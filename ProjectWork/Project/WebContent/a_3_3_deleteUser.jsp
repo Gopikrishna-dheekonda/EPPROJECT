@@ -54,7 +54,7 @@
         <% 
  
 		try {
-			String  username = request.getParameter("uname");
+			String  username = request.getParameter("username");
 		       
 			Class.forName("oracle.jdbc.driver.OracleDriver");
 			
