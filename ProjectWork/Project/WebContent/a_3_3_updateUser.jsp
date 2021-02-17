@@ -13,7 +13,7 @@
 <html>
 <head>
 <meta charset="ISO-8859-1">
-<title>Profile</title>
+<title>Update User Profile</title>
 <link rel='stylesheet' href='styles.css'>
 <style>
 	h2{
@@ -40,35 +40,36 @@
 <body>
 <div class="sidebar">
          <a class='active' >Menu</a>
-        <a href='profile.jsp'>Profile</a>
-        <a href='u_1_addVote.jsp'>Add Vote</a>
-         <a href='u_2_ViewResults.jsp'>View Results</a>
-         <a href='UserLogOut'>Log Out</a>
+        <a  href="admindash.jsp">Admin Dashboard</a>
+      <a  href="a_1_addElection.jsp">Add Election</a>
+        <a  href="a_2_addCandidate.jsp">Add Candidate</a>
+        <a  href="a_3_view.jsp">View</a>
+        <a href='AdminLogOut'>Logout</a>
     </div>
     
     <div class='content'>
         <div id='topnav'>
             <p style='text-align: center; color:white; font-family: monospace; font-size: x-large;'>College Election System</p>
         </div>
-        <h2> Profile</h2>
+        <h2>Update User Profile</h2>
+        <form method='post' action='a_3_3_updateUser_dba.jsp'>
         <table>
         <% 
  
 		try {
-			String  username = (String)session.getAttribute("un");
-		     String password = (String)session.getAttribute("pw");
-		       
+			
+		     String username = request.getParameter("username"); 
 			Class.forName("oracle.jdbc.driver.OracleDriver");
 			
 			Connection conn = DriverManager.getConnection(
 					"jdbc:oracle:thin:@localhost:1521:xe","epproject","project123");
 			
-			String sql = "select * from registeruser where username = ?";
+			String sql = "select * from registeruser where username = ? ";
 			
 			
 			PreparedStatement pstmt = conn.prepareStatement(sql);
 			
-			pstmt.setString(1, (String)session.getAttribute("un"));
+			pstmt.setString(1, username);
 			
 			ResultSet rs = pstmt.executeQuery();
 
@@ -76,31 +77,31 @@
 		%>
         	<tr>
 				<th>UserName</th>
-				<td><%= rs.getString(1) %></td>
+				<td><input type="text" name="uname" value="<%= rs.getString(1) %>" readonly="readonly"/></td>
 			</tr>
 			<tr>
 					<th>Email</th>
-					<td><%= rs.getString(2) %></td>
+					<td><input type="text" name="email" value="<%= rs.getString(2) %>"></td>
 			</tr>
 			<tr>
 					<th>Phone Number</th>
-					<td><%= rs.getString(3) %></td>
+					<td><input type="text" name="phnum" value="<%= rs.getString(3) %>" ></td>
 			</tr>
 			<tr>
 					<th>Branch</th>
-					<td><%= rs.getString(4) %></td>
+					<td><input type="text" name="branch" value="<%= rs.getString(4) %>" ></td>
 			</tr>
 			<tr>
 					<th>Gender</th>
-					<td><%= rs.getString(5) %></td>
+					<td><input type="text" name="gender" value="<%= rs.getString(5) %>" ></td>
 			</tr>
 			<tr>
 					<th>Password</th>
-					<td><%= rs.getString(6) %></td>
+					<td><input type="text" name="pword" value="<%= rs.getString(6) %>" ></td>
 			</tr>
 			
 		<%	
-			break;
+		
 			}	
 	
 			} catch (ClassNotFoundException e) {
@@ -113,7 +114,8 @@
 
 		%>
 	</table>
-		<a href='u_0_updateProfile.jsp'>Update Profile</a>
+	<input type="submit" value="Update">
+	</form>
     </div>
 </body>
 </html>

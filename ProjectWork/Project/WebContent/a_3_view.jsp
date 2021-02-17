@@ -12,8 +12,26 @@
 <html>
 <head>
 <meta charset="ISO-8859-1">
-<title>Admin Dashboard</title>
+<title>View</title>
 <link rel='stylesheet' href='styles.css'>
+<style>
+	table{
+		width: 100%;
+		height: 100%;
+		
+	}
+	table, th, td {
+	border: 1px solid black;
+	border-collapse: collapse;
+	}
+	th, td {
+	padding: 5px;
+	text-align: left;
+	}
+  a{
+  	text-decoration:none;
+  }
+</style>
 </head>
 <body>
 <div class="sidebar">
@@ -29,7 +47,25 @@
         <div id='topnav'>
             <p style='text-align: center; color:white; font-family: monospace; font-size: x-large;'>College Election System</p>
         </div>
-        <h2>Admin Dashboard</h2>
+        <h2>View All Details</h2>
+        <table>
+        	<tr>
+        		<th>View All Elections</th>
+        		<td><a href='a_3_1_allElections.jsp'>View</a></td>
+        	</tr>
+        	<tr>
+        		<th>View All Candidates</th>
+        		<td><a href='a_3_2_allCandidates.jsp'>View</a></td>
+        	</tr>
+        	<tr>
+        		<th>View All Users</th>
+        		<td><a href='a_3_3_allUsers.jsp'>View</a></td>
+        	</tr>
+        	<tr>
+        		<th>View All Votes</th>
+        		<td><a href='a_3_4_allVotes.jsp'>View</a></td>
+        	</tr>
+        </table>
     </div>
 </body>
 </html>

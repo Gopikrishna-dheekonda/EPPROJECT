@@ -13,7 +13,7 @@
 <html>
 <head>
 <meta charset="ISO-8859-1">
-<title>Profile</title>
+<title>Update Profile</title>
 <link rel='stylesheet' href='styles.css'>
 <style>
 	h2{
@@ -50,7 +50,8 @@
         <div id='topnav'>
             <p style='text-align: center; color:white; font-family: monospace; font-size: x-large;'>College Election System</p>
         </div>
-        <h2> Profile</h2>
+        <h2>Update Profile</h2>
+        <form method='post' action='u_0_updateProfile_dba.jsp'>
         <table>
         <% 
  
@@ -63,7 +64,7 @@
 			Connection conn = DriverManager.getConnection(
 					"jdbc:oracle:thin:@localhost:1521:xe","epproject","project123");
 			
-			String sql = "select * from registeruser where username = ?";
+			String sql = "select * from registeruser where username = ? ";
 			
 			
 			PreparedStatement pstmt = conn.prepareStatement(sql);
@@ -76,31 +77,31 @@
 		%>
         	<tr>
 				<th>UserName</th>
-				<td><%= rs.getString(1) %></td>
+				<td><input type="text" name="uname" value="<%= rs.getString(1) %>" readonly="readonly"/></td>
 			</tr>
 			<tr>
 					<th>Email</th>
-					<td><%= rs.getString(2) %></td>
+					<td><input type="text" name="email" value="<%= rs.getString(2) %>"></td>
 			</tr>
 			<tr>
 					<th>Phone Number</th>
-					<td><%= rs.getString(3) %></td>
+					<td><input type="text" name="phnum" value="<%= rs.getString(3) %>" ></td>
 			</tr>
 			<tr>
 					<th>Branch</th>
-					<td><%= rs.getString(4) %></td>
+					<td><input type="text" name="branch" value="<%= rs.getString(4) %>" ></td>
 			</tr>
 			<tr>
 					<th>Gender</th>
-					<td><%= rs.getString(5) %></td>
+					<td><input type="text" name="gender" value="<%= rs.getString(5) %>" ></td>
 			</tr>
 			<tr>
 					<th>Password</th>
-					<td><%= rs.getString(6) %></td>
+					<td><input type="text" name="pword" value="<%= rs.getString(6) %>" ></td>
 			</tr>
 			
 		<%	
-			break;
+		
 			}	
 	
 			} catch (ClassNotFoundException e) {
@@ -113,7 +114,8 @@
 
 		%>
 	</table>
-		<a href='u_0_updateProfile.jsp'>Update Profile</a>
+	<input type="submit" value="Update">
+	</form>
     </div>
 </body>
 </html>

@@ -13,29 +13,9 @@
 <html>
 <head>
 <meta charset="ISO-8859-1">
-<title>Profile</title>
+<title>Update Profile</title>
 <link rel='stylesheet' href='styles.css'>
-<style>
-	h2{
-		color:green;
-		font-family: monospace;
-	}
-	table{
-		width: 100%;
-		height: 100%;
-	}
-	table, th, td {
-	border: 1px solid black;
-	border-collapse: collapse;
-	}
-	th, td {
-	padding: 5px;
-	text-align: left;
-	}
-	a{
-		text-decoration:none;
-	}
-</style>
+
 </head>
 <body>
 <div class="sidebar">
@@ -50,58 +30,40 @@
         <div id='topnav'>
             <p style='text-align: center; color:white; font-family: monospace; font-size: x-large;'>College Election System</p>
         </div>
-        <h2> Profile</h2>
-        <table>
         <% 
  
 		try {
-			String  username = (String)session.getAttribute("un");
-		     String password = (String)session.getAttribute("pw");
+			String  username = request.getParameter("uname");
+		     String password = request.getParameter("pword");
+		     String email = request.getParameter("email");
+		     String phnum = request.getParameter("phnum");
+		     String branch = request.getParameter("branch");
+		     String gender = request.getParameter("gender");
 		       
 			Class.forName("oracle.jdbc.driver.OracleDriver");
 			
 			Connection conn = DriverManager.getConnection(
 					"jdbc:oracle:thin:@localhost:1521:xe","epproject","project123");
 			
-			String sql = "select * from registeruser where username = ?";
+			String sql = "update registeruser set email = ?, phonenumber = ?, branch = ?, gender = ?, password = ? where username = ?";
 			
 			
 			PreparedStatement pstmt = conn.prepareStatement(sql);
 			
-			pstmt.setString(1, (String)session.getAttribute("un"));
-			
-			ResultSet rs = pstmt.executeQuery();
-
-			while(rs.next()){
-		%>
-        	<tr>
-				<th>UserName</th>
-				<td><%= rs.getString(1) %></td>
-			</tr>
-			<tr>
-					<th>Email</th>
-					<td><%= rs.getString(2) %></td>
-			</tr>
-			<tr>
-					<th>Phone Number</th>
-					<td><%= rs.getString(3) %></td>
-			</tr>
-			<tr>
-					<th>Branch</th>
-					<td><%= rs.getString(4) %></td>
-			</tr>
-			<tr>
-					<th>Gender</th>
-					<td><%= rs.getString(5) %></td>
-			</tr>
-			<tr>
-					<th>Password</th>
-					<td><%= rs.getString(6) %></td>
-			</tr>
-			
-		<%	
-			break;
-			}	
+			pstmt.setString(1, email);
+			pstmt.setString(2, phnum);
+			pstmt.setString(3, branch);
+			pstmt.setString(4, gender);
+			pstmt.setString(5, password);
+			pstmt.setString(6, username);
+	
+			int count = pstmt.executeUpdate();
+				
+				if(count>0){
+					out.println("<h3>Successfully updated Profile</h3>");
+				} else {
+					out.println("<h3>update failed</h3>");
+				}	
 	
 			} catch (ClassNotFoundException e) {
 				// TODO Auto-generated catch block
@@ -112,8 +74,6 @@
 			}
 
 		%>
-	</table>
-		<a href='u_0_updateProfile.jsp'>Update Profile</a>
     </div>
 </body>
 </html>
