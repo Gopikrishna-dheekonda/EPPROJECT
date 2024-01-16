@@ -1,1 +1,1 @@
-# EPPROJECT
+Online Election voting system
